@@ -4,6 +4,9 @@
 //Define Sensor Pins and Type
 #define DHTPIN 12     // what pin we're connected to
 #define DHTTYPE DHT22   // DHT 22  (AM2302)
+//#define DHTTYPE DHT11   // DHT 11
+//#define DHTTYPE DHT21   // DHT 21 (AM2301)
+
 DHT dht(DHTPIN, DHTTYPE); //// Initialize DHT sensor for normal 16mhz Arduino
 
 //Variables
@@ -12,15 +15,15 @@ float hum;  //Stores humidity value
 float temp; //Stores temperature value
 
 //Define LED pins
-const int LED1_Pin = 8;
-const int LED2_Pin = 9;
+const int LED1_Green = 8;
+const int LED2_Red = 9;
 
 void setup() {
   Serial.begin(9600);
   dht.begin();
 
-  pinMode(LED1_Pin, OUTPUT);
-  pinMode(LED2_Pin, OUTPUT);
+  pinMode(LED1_Green, OUTPUT);
+  pinMode(LED2_Red, OUTPUT);
 
 }
 
@@ -36,13 +39,14 @@ void loop() {
   Serial.print(temp);
   Serial.println(" Celsius");
   delay(5000); //Delay 5 sec.
-    if (temp > 28)
+  
+    if (temp > 28) //Check if Temperature is higher than 28c
   {
-    digitalWrite(LED1_Pin, LOW);
-    digitalWrite(LED2_Pin, HIGH);
+    digitalWrite(LED1_Green, LOW);
+    digitalWrite(LED2_Red, HIGH);
   }
   else
   {
-    digitalWrite(LED1_Pin, HIGH);
-    digitalWrite(LED2_Pin, LOW);  }
+    digitalWrite(LED1_Green, HIGH);
+    digitalWrite(LED2_Red, LOW);  }
 }
